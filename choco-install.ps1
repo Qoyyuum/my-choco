@@ -1,9 +1,9 @@
 function Install-ChocoPackages
 {
     [CmdletBinding()]
-    param {
+    param(
         [string[]]$Packages
-    }
+    )
 
     foreach ($Package in $Packages)
     {
@@ -38,7 +38,8 @@ function main
 {
     # ChocoInstallBase.ps1 by Q (forked from atwork.at)
     # Get Chocolatey
-    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    try { Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) }
+    catch { Write-Host "Choco installed"} # TODO: Not sure what errors to capture
     Install-Essentials
     Install-Comms
     Install-Fonts
@@ -222,7 +223,7 @@ function Install-Dev
         'dotnetfx',
         'netfx-4.7.2-devpack',
         'dotnetcore',
-        'dotnetcore-runtime',
+        'dotnetcore-runtime'
     )
 
     Install-ChocoPackages -Packages $dev
