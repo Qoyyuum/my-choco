@@ -38,8 +38,8 @@ function main
 {
     # ChocoInstallBase.ps1 by Q (forked from atwork.at)
     # Get Chocolatey
-    try { Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) }
-    catch { Write-Host "Choco installed"} # TODO: Not sure what errors to capture
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) 
+    
     Install-Essentials
     Install-Comms
     Install-Fonts
@@ -106,14 +106,18 @@ function Install-Essentials
         'keepassxc',
         'chromium',
         'firefox',
-        'foxitreader',
+        'foxitreader --ia \'/MERGETASKS="!desktopicon,!setdefaultreader,!displayinbrowser /COMPONENTS=*pdfviewer,*ffse,*installprint,*ffaddin,*ffspellcheck,!connectedpdf /LANG=en"\'',
         'malwarebytes',
         'ccleaner',
         'f.lux',
         'sudo',
         'scrcpy',
         'money-manager-ex',
-        'speccy'
+        'speccy',
+	    'synctrayzor',
+        "powertoys",
+        "modernflyouts",
+        "teracopy"
     )
     
     Install-ChocoPackages -Packages $essentials
@@ -186,7 +190,7 @@ function Install-WSL
     # Windows Subsystem for Linux
     Write-Host "Installing WSL and OS"
     $wsl = @(
-        'wsl',
+        'wsl2',
         'wsl-debiangnulinux',
         'wsl-kalilinux'
     )
