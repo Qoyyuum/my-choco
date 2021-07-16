@@ -321,6 +321,8 @@ function Install-Misc
 
 
 function Windows-Custom-Settings {
+    # Remove Built-In Apps
+    Get-AppxPackage -AllUsers | Remove-AppxPackage
     choco install -y taskbar-winconfig --params "'/INK:no /PEOPLE:no /STORE:no /TASKVIEW:no /KEYBOARD:no /LOCATION:bottom /SIZE:big /LOCKED:yes /COMBINED:no /CORTANA:no /AUTOTRAY:YES /USEPOWERSHELL:yes'"
     choco install -y desktopicons-winconfig --params "'/Desktop:YES /UserFiles:YES /ControlPanel:NO /Network:NO /RecycleBin:YES /OneDrive:NO'"
     choco install -y explorer-winconfig --params "'/SHOWEXTENSIONS:yes /SHOWFULLPATH:yes /SHOWENCRYPTED:yes /SHOWCHECKBOXES:no /USESHARINGWIZARD:no /USEVIEW:details'"
